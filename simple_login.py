@@ -56,7 +56,7 @@ def login_mainmenu():
             # 사용자가 입력하는 메뉴 번호를 정수형 숫자로 제한해서 받는다
             select_menu = int(input(login_menu))
             if select_menu == 1:    # create new user id and password
-                print("Selection: 1")
+                create_user()
             elif select_menu == 2:   # change a password
                 print("Selection: 2")
             elif select_menu == 3:   # display all user id
@@ -72,4 +72,4 @@ def login_mainmenu():
            
 
 #
-print(create_user())                     
+login_mainmenu()                  
