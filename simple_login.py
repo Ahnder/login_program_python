@@ -1,9 +1,18 @@
+# 새로운 유저 정보를 작성하는 함수
+def create_user():
+    # 사용자에게 ID와 비밀번호를 입력받는다
+    user_id = input("ID: ")
+    user_password = input("PASSWORD: ")
+
+    return (user_id, user_password)
+
+
 # 로그인 프로그램 메인메뉴 함수
 def login_mainmenu():
     # 터미널에서 사용자가 가장 먼저 보게될 메뉴
     login_menu = "\n1) Create a new User ID\n2) Change a password\n3) Display all User IDs\n4) Quit\n\nEnter Selection: "
 
-    
+    # 4번 종료 메뉴가 선택될 떄까지 메뉴화면을 계속 출력한다
     while True:
         try:
             # 사용자가 입력하는 메뉴 번호를 정수형 숫자로 제한해서 받는다
@@ -18,11 +27,11 @@ def login_mainmenu():
                 print("Selection: 4, Exit the program")
                 break
             else:
-                print("Incorrect Selection")
+                print("Select correct menu number")
 
         except Exception:
-            print("Select correct menu number")         
+            print("The input is not number, Select correct menu number")         
            
 
-
-login_mainmenu()                       
+#
+print(create_user())                     
