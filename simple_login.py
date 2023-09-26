@@ -5,17 +5,9 @@ import csv
 def create_user():
     # 사용자에게 ID와 비밀번호를 입력받는다
     user_id = input("ID: ")
-    # user_password = input("PASSWORD: ")
-
-    # data = (user_id, user_password)
-    
-    # # csv파일 write 하기 위한 리스트
-    # data_list = list()
-    # data_list.append(data)
 
     # 사용 할 csv_filename
     csv_filename = "userinfo.csv"
-
     # csv 파일 읽기
     with open(csv_filename, 'r') as f:
         reader = csv.reader(f)
@@ -24,14 +16,28 @@ def create_user():
     exist_user = [userinfo 
                   for userinfo in read_user_list 
                   if userinfo[0] == user_id]
+    
+    # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
+    while exist_user:
+        user_id = input("Exist ID, Enter a different ID\nID: ")
+        exist_user = [userinfo 
+                  for userinfo in read_user_list 
+                  if userinfo[0] == user_id]
 
+    # user_password = input("PASSWORD: ")
+
+    # data = (user_id, user_password)
+    
+    # # csv파일 write 하기 위한 리스트
+    # data_list = list()
+    # data_list.append(data)
 
     # # csv 파일 쓰기
     # with open(csv_filename, 'w') as f:
     #     writer = csv.writer(f)
     #     writer.writerows(data_list)
 
-    return exist_user
+    return user_id
 
 
 # 로그인 프로그램 메인메뉴 함수
