@@ -3,8 +3,8 @@ import csv
 
 # 새로운 유저 정보를 작성하는 함수
 def create_user():
-    # # 사용자에게 ID와 비밀번호를 입력받는다
-    # user_id = input("ID: ")
+    # 사용자에게 ID와 비밀번호를 입력받는다
+    user_id = input("ID: ")
     # user_password = input("PASSWORD: ")
 
     # data = (user_id, user_password)
@@ -20,12 +20,18 @@ def create_user():
     with open(csv_filename, 'r') as f:
         reader = csv.reader(f)
         read_user_list = list(reader)
-    # csv 파일 쓰기
+    # 리스트 내포를 사용해서 유저가 존재하면 유저정보를, 존재하지 않으면 빈리스트를 값으로 가진다
+    exist_user = [userinfo 
+                  for userinfo in read_user_list 
+                  if userinfo[0] == user_id]
+
+
+    # # csv 파일 쓰기
     # with open(csv_filename, 'w') as f:
     #     writer = csv.writer(f)
     #     writer.writerows(data_list)
 
-    return read_user_list
+    return exist_user
 
 
 # 로그인 프로그램 메인메뉴 함수
