@@ -15,7 +15,16 @@ def read_user_list():
             reader = csv.reader(f)
             user_list = list(reader)
 
-    return user_list         
+    return user_list
+
+
+# id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
+# id값이 존재하면 유저정보, 존재하지 않으면 None을 리턴하는 함수
+def check_equal_id(userid, userlist):
+    #
+    for user in userlist:
+        if user[0] == userid:
+            return user
 
 
 # 새로운 유저 정보를 작성하는 함수
