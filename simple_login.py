@@ -45,6 +45,17 @@ def create_user():
         writer.writerows(data_list)
     
 
+# 기존 유저의 비밀번호를 변경하는 함수
+def change_password():
+    # 유저에게 ID를 입력받는다
+    user_id = input("ID: ")
+    user_password = input("PASSWORD: ")
+    
+    user_data = (user_id, user_password)
+
+    return user_data
+
+
 # 로그인 프로그램 메인메뉴 함수
 def login_mainmenu():
     # 터미널에서 사용자가 가장 먼저 보게될 메뉴
@@ -72,4 +83,5 @@ def login_mainmenu():
            
 
 #
-login_mainmenu()                  
+print(change_password())
+#login_mainmenu()                  
