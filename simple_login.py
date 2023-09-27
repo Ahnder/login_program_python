@@ -75,18 +75,18 @@ def change_password():
                       if userinfo[0] == user_id]   
 
 
-        # # 유저에게 비밀번호를 입력받는다
-        # # 위의 exist_user를 통과해야 비밀번호 입력 기능을 출력하고
-        # # exist_user에 ID값에 맞는 비밀번호 정보도 들어있으니 바로 적용한다
-        # user_password = input("PASSWORD: ")
-        # # 현재 비밀번호
-        # correct_password = exist_user[0][1]
-        # # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
-        # while not user_password == correct_password:
-        #     user_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
+        # 유저에게 비밀번호를 입력받는다
+        # 위의 exist_user를 통과해야 비밀번호 입력 기능을 출력하고
+        # exist_user에 ID값에 맞는 비밀번호 정보도 들어있으니 바로 적용한다
+        user_password = input("PASSWORD: ")
+        # 현재 비밀번호
+        correct_password = exist_user[0][1]
+        # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
+        while not user_password == correct_password:
+            user_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
 
-        # # 새로운 비밀번호    
-        # new_password = input("NEW PASSWORD: ")
+        # 새로운 비밀번호    
+        new_password = input("NEW PASSWORD: ")
 
         
         # 변경 된 비밀번호 csv 파일 쓰기
@@ -96,10 +96,13 @@ def change_password():
             if userinfo[0] == user_id:
                 user_index = user_list.index(userinfo)
 
+        # 유저리스트에서 알맞은 유저인덱스를 찾아 변경된 비밀번호 값 적용
+        user_list[user_index][1] = new_password             
+
     # 변경된 비밀번호로 유저 정보 출력
     # user_data = (user_id, new_password)
 
-    return user_index
+    return user_list
 
 
 # 로그인 프로그램 메인메뉴 함수
