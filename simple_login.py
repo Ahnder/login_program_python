@@ -67,26 +67,21 @@ def change_password():
     # csv read 함수로 유저리스트 작성
     user_list = read_user_list()
 
-    
-    # 리스트 내포를 사용해서 유저가 존재하면 유저정보를, 존재하지 않으면 빈리스트를 값으로 가진다
-    exist_user = [userinfo 
-                  for userinfo in user_list 
-                  if userinfo[0] == user_id]
-
-    # 비밀번호를 변경하기 위해서는 기존에 유저정보가 존재해야 하므로 
-    # 입력한 ID가 기존에 존재하지 않는 ID일 경우, 존재하는 ID를 입력할 때까지 입력창이 반복된다
-    # exist_user: 입력한 ID가 기존에 존재할 경우 유저정보리스트를 값으로 가지므로 True, 존재하지 않을경우 빈리스트를 값으로 가지므로 False
-    while not exist_user:
+    # ID값에 맞는 비밀번호도 가져올 수 있게 userinfo라는 변수에 check_equal_id값 할당
+    userinfo = check_equal_id(user_id, user_list)
+    # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
+    # check_equal_id() : 기존에 존재하는 id인지 user_list에서 확인한 다음에 존재하면 유저정보, 존재하지 않으면 None을 리턴한다
+    while not userinfo:
         user_id = input("Not found ID, Enter correct ID\nID: ")
-        exist_user = [userinfo 
-                  for userinfo in user_list
-                  if userinfo[0] == user_id]   
+        userinfo = check_equal_id(user_id, user_list)
+        
+
     # 유저에게 비밀번호를 입력받는다
     # 위의 exist_user를 통과해야 비밀번호 입력 기능을 출력하고
     # exist_user에 ID값에 맞는 비밀번호 정보도 들어있으니 바로 적용한다
     user_password = input("PASSWORD: ")
     # 현재 비밀번호
-    correct_password = exist_user[0][1]
+    correct_password = userinfo[1]
     # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
     while not user_password == correct_password:
         user_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
@@ -96,9 +91,9 @@ def change_password():
     # 변경 된 비밀번호 csv 파일 쓰기
     # csv파일을 읽어온 리스트에서 변경된 비밀번호에 맞는 유저 인덱스를 추출해서
     # 변경 된 값을 적용한 뒤 csv 파일에 전체 리스트를 쓴다
-    for userinfo in user_list:
-        if userinfo[0] == user_id:
-            user_index = user_list.index(userinfo)
+    for user in user_list:
+        if user[0] == user_id:
+            user_index = user_list.index(user)
     # 유저리스트에서 알맞은 유저인덱스를 찾아 변경된 비밀번호 값 적용
     user_list[user_index][1] = new_password
     # 변경된 유저리스트를 csv파일에 'w'옵션으로 쓰기
