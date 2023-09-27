@@ -51,6 +51,36 @@ def update_userinfo(user_id, new_password):
         writer.writerows(userlist)
 
 
+# 비밀번호를 매개변수로 받아 각 항목 점수를 평가해서 리턴
+def score_password(password):
+    # 점수
+    score = 0
+    # 비밀번호에 허용된 특수문자열
+    special_letters = "!@#$%^&*"
+
+    # 비밀번호가 8자리 이상
+    if len(password) >= 8:
+        score += 1
+    # 대문자 하나 이상
+    if not password.islower():
+        score += 1
+    # 소문자 하나 이상
+    if not password.isupper():
+        score += 1
+    # 숫자 하나 이상
+    for letter in password:
+        if letter.isdigit():
+            score += 1
+            break
+    # 특수문자열에서 하나 이상
+    for letter in password:
+        if letter in special_letters:
+            score += 1
+            break
+
+    return score
+
+
 # id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
 # id값이 존재하면 유저정보, 존재하지 않으면 None을 리턴하는 함수
 def check_equal_id(userid):
