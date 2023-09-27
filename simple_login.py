@@ -36,18 +36,11 @@ def create_user():
     # csv read 함수로 유저리스트 작성
     user_list = read_user_list()
     
-    # 리스트 내포를 사용해서 유저가 존재하면 유저정보를, 존재하지 않으면 빈리스트를 값으로 가진다
-    exist_user = [userinfo 
-                  for userinfo in user_list 
-                  if userinfo[0] == user_id]
-
     # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
-    # exist_user: 입력한 ID가 기존에 존재할 경우 유저정보리스트를 값으로 가지므로 True, 존재하지 않을경우 빈리스트를 값으로 가지므로 False
-    while exist_user:
+    # check_equal_id() : 기존에 존재하는 id인지 user_list에서 확인한 다음에 존재하면 유저정보, 존재하지 않으면 None을 리턴한다
+    while check_equal_id(user_id, user_list):
         user_id = input("Exist ID, Enter a different ID\nID: ")
-        exist_user = [userinfo 
-                  for userinfo in user_list
-                  if userinfo[0] == user_id]
+        check_equal_id(user_id, user_list)
 
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
