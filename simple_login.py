@@ -37,7 +37,10 @@ def update_userinfo(userdata):
     userlist = read_user_list()
     user_id = userdata[0]
     user_password = userdata[1]
-    user_index = userlist.index(user_id)
+    # id에 맞는 유저리스트에서의 인덱스 값을 추출
+    for user in userlist:
+        if user[0] == user_id:
+            user_index = userlist.index(user)
     # 유저리스트에서 비밀번호값을 변경한다
     userlist[user_index][1] = user_password
 
@@ -81,10 +84,6 @@ def create_user():
 def change_password():
     # 유저에게 ID를 입력받는다
     user_id = input("ID: ")
-    # 사용 할 csv_filename
-    csv_filename = "userinfo.csv"
-    # csv read 함수로 유저리스트 작성
-    user_list = read_user_list()
 
     # ID값에 맞는 비밀번호도 가져올 수 있게 userinfo라는 변수에 check_equal_id값 할당
     userinfo = check_equal_id(user_id)
@@ -93,37 +92,21 @@ def change_password():
     while not userinfo:
         user_id = input("Not found ID, Enter correct ID\nID: ")
         userinfo = check_equal_id(user_id)
-        
 
     # 유저에게 비밀번호를 입력받는다
-    # 위의 exist_user를 통과해야 비밀번호 입력 기능을 출력하고
-    # exist_user에 ID값에 맞는 비밀번호 정보도 들어있으니 바로 적용한다
     input_password = input("PASSWORD: ")
-    # 현재 비밀번호
+    # id에 맞는 비밀번호
     correct_password = userinfo[1]
+    
     # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
     while not input_password == correct_password:
         input_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
     # 새로운 비밀번호    
     new_password = input("NEW PASSWORD: ")
-    
-    # 변경 된 비밀번호 csv 파일 쓰기
-    # csv파일을 읽어온 리스트에서 변경된 비밀번호에 맞는 유저 인덱스를 추출해서
-    # 변경 된 값을 적용한 뒤 csv 파일에 전체 리스트를 쓴다
-    for user in user_list:
-        if user[0] == user_id:
-            user_index = user_list.index(user)
-    # 유저리스트에서 알맞은 유저인덱스를 찾아 변경된 비밀번호 값 적용
-    user_list[user_index][1] = new_password
-    # 변경된 유저리스트를 csv파일에 'w'옵션으로 쓰기
-    with open(csv_filename, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(user_list)               
 
-    # 변경된 비밀번호로 유저 정보 출력
-    # user_data = (user_id, new_password)
-
-    # return user_list
+    # id와 새로운 패스워드를 묶어 userdata변수에 담아서 update_userinfo 함수에 매개변수로 넘겨준다
+    userdata = (user_id, new_password)    
+    update_userinfo(userdata)
 
 
 # 전체 유저ID를 출력하는 함수
