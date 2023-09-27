@@ -56,17 +56,9 @@ def create_user():
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
 
-    data = (user_id, user_password)
-    
-    # csv파일 write 하기 위한 리스트
-    data_list = list()
-    data_list.append(data)
-
-    # csv 파일 쓰기
-    # csv 쓰기 옵션을 'w'에서 'a'로 바꿔서 새로운 유저정보를 추가해준다
-    with open(csv_filename, 'a') as f:
-        writer = csv.writer(f)
-        writer.writerows(data_list)
+    user_data = (user_id, user_password)
+    # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
+    write_userinfo(user_data)
     
 
 # 기존 유저의 비밀번호를 변경하는 함수
