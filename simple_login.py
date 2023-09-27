@@ -105,6 +105,13 @@ def create_user():
 
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
+    # 비밀번호 점수 평가
+    score = score_password(user_password)
+    score_standard = "8characters more\nuppercase one more\nlowercase one more\nnumber one more\nspecial characters one more"
+    while score < 3:
+        user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
+        score = score_password(user_password)
+
     # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
     write_userinfo(user_id, user_password)
     
