@@ -81,6 +81,34 @@ def score_password(password):
     return score
 
 
+# 비밀번호를 매개변수로 받아서 점수를 평가하고 점수에 따라서 맞는 메시지와 비밀번호 입력창을 출력, 기준을 통과한 비밀번호를 리턴
+def eval_score_password(user_password):
+    # 비밀번호 점수 평가
+    score = score_password(user_password)
+    # 비밀번호 점수 기준을 알려주는 메시지
+    score_standard = "\n\nPassword at least this condition:\n\n8characters more\nuppercase one more\nlowercase one more\nnumber one more\nspecial characters one more\n\n"
+    # 3점미만일 때 메시지
+    weakness_password_message = f'\nWeakness password, Try again{score_standard}'
+    #
+    while score < 5:
+        if score < 3:
+            user_password = input(weakness_password_message + "PASSWORD: ")
+            score = score_password(user_password)   
+        #
+        while score == 3 or score == 4:
+            answer = input("This password could be improved, Try again? (y/n): ")
+            if answer == "n":
+                return user_password
+            elif answer == "y":  
+                user_password = input(score_standard + "PASSWORD: ")
+                score = score_password(user_password)  
+            else:
+                print("Enter y or n")       
+        
+
+    return user_password
+
+
 # id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
 # id값이 존재하면 유저정보, 존재하지 않으면 None을 리턴하는 함수
 def check_equal_id(userid):
@@ -106,29 +134,7 @@ def create_user():
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
     # 비밀번호 점수 평가
-    score = score_password(user_password)
-    score_standard = "8characters more\nuppercase one more\nlowercase one more\nnumber one more\nspecial characters one more"
-    while score < 5:
-        # user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
-        # score = score_password(user_password)
-        #
-        if score < 3:
-            user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
-            score = score_password(user_password)
-        #    
-        else:
-            answer = input("This password could be improved, Try again? (y/n): ")
-            #
-            if answer == 'n':
-                score = 5
-            elif answer == 'y':
-                #
-                user_password = input("PASSWORD: ")
-                score = score_password(user_password)   
-            else:
-                print("Enter y or n")     
-
-                
+    user_password = eval_score_password(user_password)                
 
     # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
     write_userinfo(user_id, user_password)
