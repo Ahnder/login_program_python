@@ -33,11 +33,18 @@ def write_userinfo(userdata):
 def update_userinfo(userdata):
     # 사용 할 csv_filename
     csv_filename = "userinfo.csv"
-    # csv 파일 쓰기
-    # csv 쓰기 옵션을 'a'로 사용 새로운 유저정보를 csv파일 마지막줄에 추가해준다
-    with open(csv_filename, 'a') as f:
+    # 유저 데이터 확인을 위해 기존의 유저정보를 불러온다
+    userlist = read_user_list()
+    user_id = userdata[0]
+    user_password = userdata[1]
+    user_index = userlist.index(user_id)
+    # 유저리스트에서 비밀번호값을 변경한다
+    userlist[user_index][1] = user_password
+
+    # 변경된 정보를 csv파일에 전체쓰기한다
+    with open(csv_filename, 'w') as f:
         writer = csv.writer(f)
-        writer.writerow(userdata)
+        writer.writerows(userlist)
 
 
 # id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
