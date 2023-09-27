@@ -18,6 +18,17 @@ def read_user_list():
     return user_list
 
 
+# csv파일을 write하는 함수 (유저정보를 한줄씩 추가)
+def write_userinfo(userdata):
+    # 사용 할 csv_filename
+    csv_filename = "userinfo.csv"
+    # csv 파일 쓰기
+    # csv 쓰기 옵션을 'a'로 사용 새로운 유저정보를 csv파일 마지막줄에 추가해준다
+    with open(csv_filename, 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow(userdata)
+
+
 # id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
 # id값이 존재하면 유저정보, 존재하지 않으면 None을 리턴하는 함수
 def check_equal_id(userid, userlist):
