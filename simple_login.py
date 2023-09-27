@@ -29,10 +29,23 @@ def write_userinfo(userdata):
         writer.writerow(userdata)
 
 
+# csv파일을 update하는 함수 (변경 된 유저정보(새 비밀번호)를 유저리스트에 저장 후 전체 유저리스트 쓰기)
+def update_userinfo(userdata):
+    # 사용 할 csv_filename
+    csv_filename = "userinfo.csv"
+    # csv 파일 쓰기
+    # csv 쓰기 옵션을 'a'로 사용 새로운 유저정보를 csv파일 마지막줄에 추가해준다
+    with open(csv_filename, 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow(userdata)
+
+
 # id와 유저리스트를 매개변수로 받아서 id값의 중복여부를 확인하고 
 # id값이 존재하면 유저정보, 존재하지 않으면 None을 리턴하는 함수
-def check_equal_id(userid, userlist):
-    #
+def check_equal_id(userid):
+    # id값을 확인하기 위해 기존 csv파일을 읽어온다
+    userlist = read_user_list()
+    
     for user in userlist:
         if user[0] == userid:
             return user
@@ -42,20 +55,16 @@ def check_equal_id(userid, userlist):
 def create_user():
     # 사용자에게 ID와 비밀번호를 입력받는다
     user_id = input("ID: ")
-    # 사용 할 csv_filename
-    csv_filename = "userinfo.csv"
-    # csv read 함수로 유저리스트 작성
-    user_list = read_user_list()
     
     # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
     # check_equal_id() : 기존에 존재하는 id인지 user_list에서 확인한 다음에 존재하면 유저정보, 존재하지 않으면 None을 리턴한다
-    while check_equal_id(user_id, user_list):
+    while check_equal_id(user_id):
         user_id = input("Exist ID, Enter a different ID\nID: ")
-        check_equal_id(user_id, user_list)
+        check_equal_id(user_id)
 
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
-
+    # 새로운 아이디와 비밀번호를 user_data변수에 할당
     user_data = (user_id, user_password)
     # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
     write_userinfo(user_data)
@@ -71,12 +80,12 @@ def change_password():
     user_list = read_user_list()
 
     # ID값에 맞는 비밀번호도 가져올 수 있게 userinfo라는 변수에 check_equal_id값 할당
-    userinfo = check_equal_id(user_id, user_list)
+    userinfo = check_equal_id(user_id)
     # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
     # check_equal_id() : 기존에 존재하는 id인지 user_list에서 확인한 다음에 존재하면 유저정보, 존재하지 않으면 None을 리턴한다
     while not userinfo:
         user_id = input("Not found ID, Enter correct ID\nID: ")
-        userinfo = check_equal_id(user_id, user_list)
+        userinfo = check_equal_id(user_id)
         
 
     # 유저에게 비밀번호를 입력받는다
