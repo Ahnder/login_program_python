@@ -19,7 +19,10 @@ def read_user_list():
 
 
 # csv파일을 write하는 함수 (유저정보를 한줄씩 추가)
-def write_userinfo(userdata):
+def write_userinfo(user_id, user_password):
+    # 한 줄에 유저정보를 담기 위한 userdata 변수
+    userdata = (user_id, user_password)
+    
     # 사용 할 csv_filename
     csv_filename = "userinfo.csv"
     # csv 파일 쓰기
@@ -30,19 +33,17 @@ def write_userinfo(userdata):
 
 
 # csv파일을 update하는 함수 (변경 된 유저정보(새 비밀번호)를 유저리스트에 저장 후 전체 유저리스트 쓰기)
-def update_userinfo(userdata):
+def update_userinfo(user_id, new_password):
     # 사용 할 csv_filename
     csv_filename = "userinfo.csv"
     # 유저 데이터 확인을 위해 기존의 유저정보를 불러온다
     userlist = read_user_list()
-    user_id = userdata[0]
-    user_password = userdata[1]
     # id에 맞는 유저리스트에서의 인덱스 값을 추출
     for user in userlist:
         if user[0] == user_id:
             user_index = userlist.index(user)
     # 유저리스트에서 비밀번호값을 변경한다
-    userlist[user_index][1] = user_password
+    userlist[user_index][1] = new_password
 
     # 변경된 정보를 csv파일에 전체쓰기한다
     with open(csv_filename, 'w') as f:
@@ -74,10 +75,8 @@ def create_user():
 
     # 위의 ID 검증과정을 통과하면 비밀번호 입력창을 출력한다
     user_password = input("PASSWORD: ")
-    # 새로운 아이디와 비밀번호를 user_data변수에 할당
-    user_data = (user_id, user_password)
     # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
-    write_userinfo(user_data)
+    write_userinfo(user_id, user_password)
     
 
 # 기존 유저의 비밀번호를 변경하는 함수
@@ -97,16 +96,15 @@ def change_password():
     input_password = input("PASSWORD: ")
     # id에 맞는 비밀번호
     correct_password = userinfo[1]
-    
+
     # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
     while not input_password == correct_password:
         input_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
     # 새로운 비밀번호    
     new_password = input("NEW PASSWORD: ")
-
-    # id와 새로운 패스워드를 묶어 userdata변수에 담아서 update_userinfo 함수에 매개변수로 넘겨준다
-    userdata = (user_id, new_password)    
-    update_userinfo(userdata)
+    
+    #
+    update_userinfo(user_id, new_password)
 
 
 # 전체 유저ID를 출력하는 함수
