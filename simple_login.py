@@ -107,7 +107,7 @@ def change_password():
     # 변경된 비밀번호로 유저 정보 출력
     # user_data = (user_id, new_password)
 
-    return user_list
+    # return user_list
 
 
 # 전체 유저ID를 출력하는 함수
@@ -129,7 +129,7 @@ def display_all_user_id():
     for userinfo in user_list:
         all_user_id_list.append(userinfo[0])        
 
-    return '\n'.join(all_user_id_list)
+    print("All_User_IDs:\n" + '\n'.join(all_user_id_list))
 
 
 # 로그인 프로그램 메인메뉴 함수
@@ -145,9 +145,9 @@ def login_mainmenu():
             if select_menu == 1:    # create new user id and password
                 create_user()
             elif select_menu == 2:   # change a password
-                print("Selection: 2")
+                change_password()
             elif select_menu == 3:   # display all user id
-                print("Selection: 3")
+                display_all_user_id()
             elif select_menu == 4:   # quit
                 print("Selection: 4, Exit the program")
                 break
@@ -159,5 +159,4 @@ def login_mainmenu():
            
 
 #
-print(display_all_user_id())
-#login_mainmenu()                  
+login_mainmenu()                  
