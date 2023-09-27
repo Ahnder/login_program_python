@@ -79,12 +79,12 @@ def change_password():
     # 유저에게 비밀번호를 입력받는다
     # 위의 exist_user를 통과해야 비밀번호 입력 기능을 출력하고
     # exist_user에 ID값에 맞는 비밀번호 정보도 들어있으니 바로 적용한다
-    user_password = input("PASSWORD: ")
+    input_password = input("PASSWORD: ")
     # 현재 비밀번호
     correct_password = userinfo[1]
     # 현재 비밀번호와 입력된 비밀번호가 동일 할 때까지 비밀번호 입력을 반복한다
-    while not user_password == correct_password:
-        user_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
+    while not input_password == correct_password:
+        input_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
     # 새로운 비밀번호    
     new_password = input("NEW PASSWORD: ")
     
