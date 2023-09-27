@@ -2,6 +2,22 @@
 import csv
 from os import path
 
+# csv파일을 read해서 정보를 가져오는 함수
+def read_user_list():
+    # 사용 할 csv_filename
+    csv_filename = "userinfo.csv"
+
+    # csv 파일이 존재해야만 기존정보가 존재해서 파일 읽기가 가능하므로 파일이 존재 할 때만 파일 읽기를 한다
+    exist_csvfile = path.exists(csv_filename)
+    if exist_csvfile:
+        # csv 파일 읽기
+        with open(csv_filename, 'r') as f:
+            reader = csv.reader(f)
+            user_list = list(reader)
+
+    return user_list         
+
+
 # 새로운 유저 정보를 작성하는 함수
 def create_user():
     # 사용자에게 ID와 비밀번호를 입력받는다
@@ -159,4 +175,5 @@ def login_mainmenu():
            
 
 #
-login_mainmenu()                  
+print(read_user_list())
+#login_mainmenu()                  
