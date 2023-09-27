@@ -15,10 +15,10 @@ def create_user():
         # csv 파일 읽기
         with open(csv_filename, 'r') as f:
             reader = csv.reader(f)
-            read_user_list = list(reader)
+            user_list = list(reader)
         # 리스트 내포를 사용해서 유저가 존재하면 유저정보를, 존재하지 않으면 빈리스트를 값으로 가진다
         exist_user = [userinfo 
-                      for userinfo in read_user_list 
+                      for userinfo in user_list 
                       if userinfo[0] == user_id]
     
         # 입력한 ID가 기존에 존재하는 ID일 경우, 존재하지 않는 ID를 입력할 때까지 입력창이 반복된다
@@ -48,12 +48,22 @@ def create_user():
 # 기존 유저의 비밀번호를 변경하는 함수
 def change_password():
     # 유저에게 ID를 입력받는다
-    user_id = input("ID: ")
-    user_password = input("PASSWORD: ")
-    
-    user_data = (user_id, user_password)
+    # user_id = input("ID: ")
 
-    return user_data
+    # 사용 할 csv_filename
+    csv_filename = "userinfo.csv"
+
+    # csv 파일 read
+    with open(csv_filename, 'r') as f:
+        reader = csv.reader(f)
+        user_list = list(reader)
+
+
+    # # 유저에게 비밀번호를 입력받는다
+    # user_password = input("PASSWORD: ")
+    # user_data = (user_id, user_password)
+
+    return user_list
 
 
 # 로그인 프로그램 메인메뉴 함수
