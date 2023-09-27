@@ -110,6 +110,28 @@ def change_password():
     return user_list
 
 
+# 전체 유저ID를 출력하는 함수
+def display_all_user_id():
+    # csv 파일 읽어오기
+    # 사용 할 csv_filename
+    csv_filename = "userinfo.csv"
+
+    # csv 파일이 존재해야만 기존정보가 존재해서 파일 읽기가 가능하므로 파일이 존재 할 때만 파일 읽기를 한다
+    exist_csvfile = path.exists(csv_filename)
+    if exist_csvfile:
+        # csv 파일 읽기
+        with open(csv_filename, 'r') as f:
+            reader = csv.reader(f)
+            user_list = list(reader)
+
+    # 모든 유저 ID 리스트
+    all_user_id_list = list()
+    for userinfo in user_list:
+        all_user_id_list.append(userinfo[0])        
+
+    return '\n'.join(all_user_id_list)
+
+
 # 로그인 프로그램 메인메뉴 함수
 def login_mainmenu():
     # 터미널에서 사용자가 가장 먼저 보게될 메뉴
@@ -137,5 +159,5 @@ def login_mainmenu():
            
 
 #
-print(change_password())
+print(display_all_user_id())
 #login_mainmenu()                  
