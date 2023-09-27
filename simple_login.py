@@ -108,9 +108,27 @@ def create_user():
     # 비밀번호 점수 평가
     score = score_password(user_password)
     score_standard = "8characters more\nuppercase one more\nlowercase one more\nnumber one more\nspecial characters one more"
-    while score < 3:
-        user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
-        score = score_password(user_password)
+    while score < 5:
+        # user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
+        # score = score_password(user_password)
+        #
+        if score < 3:
+            user_password = input(f'\nYour passwore score: {score}\nWeakness password, Try again\n\n{score_standard}\n\nPASSWORD: ')
+            score = score_password(user_password)
+        #    
+        else:
+            answer = input("This password could be improved, Try again? (y/n): ")
+            #
+            if answer == 'n':
+                score = 5
+            elif answer == 'y':
+                #
+                user_password = input("PASSWORD: ")
+                score = score_password(user_password)   
+            else:
+                print("Enter y or n")     
+
+                
 
     # csv쓰기 함수를 사용하여 새로운 유저정보 마지막줄에 추가
     write_userinfo(user_id, user_password)
