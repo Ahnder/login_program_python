@@ -97,7 +97,12 @@ def change_password():
                 user_index = user_list.index(userinfo)
 
         # 유저리스트에서 알맞은 유저인덱스를 찾아 변경된 비밀번호 값 적용
-        user_list[user_index][1] = new_password             
+        user_list[user_index][1] = new_password
+
+        # 변경된 유저리스트를 csv파일에 'w'옵션으로 쓰기
+        with open(csv_filename, 'w') as f:
+            writer = csv.writer(f)
+            writer.writerows(user_list)               
 
     # 변경된 비밀번호로 유저 정보 출력
     # user_data = (user_id, new_password)
