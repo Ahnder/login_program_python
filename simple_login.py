@@ -163,6 +163,7 @@ def change_password():
         input_password = input("Incorrect PASSWORD, Enter correct PASSWORD\nPASSWORD: ")
     # 새로운 비밀번호    
     new_password = input("NEW PASSWORD: ")
+    new_password = eval_score_password(new_password)
     
     #
     update_userinfo(user_id, new_password)
