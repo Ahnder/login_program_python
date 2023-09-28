@@ -40,10 +40,8 @@ def update_userinfo(user_id, new_password):
     userlist = read_user_list()
     # id에 맞는 유저리스트에서의 인덱스 값을 추출
     for user in userlist:
-        if user[0] == user_id:
-            user_index = userlist.index(user)
-    # 유저리스트에서 비밀번호값을 변경한다
-    userlist[user_index][1] = new_password
+        if user_id in user:
+            user[1] = new_password
 
     # 변경된 정보를 csv파일에 전체쓰기한다
     with open(csv_filename, 'w') as f:
