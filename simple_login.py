@@ -84,7 +84,12 @@ def eval_score_password(user_password):
     # 비밀번호 점수 평가
     score = score_password(user_password)
     # 비밀번호 점수 기준을 알려주는 메시지
-    score_standard = "\n\nPassword at least this condition:\n\n8characters more\nuppercase one more\nlowercase one more\nnumber one more\nspecial characters one more\n\n"
+    score_standard = ("\n\nPassword at least this condition:"
+                      "\n\n8characters more"
+                      "\nuppercase one more"
+                      "\nlowercase one more"
+                      "\nnumber one more"
+                      "\nspecial characters one more\n\n")
     # 3점미만일 때 메시지
     weakness_password_message = f'\nWeakness password, Try again{score_standard}'
     #
@@ -183,7 +188,11 @@ def display_all_user_id():
 # 로그인 프로그램 메인메뉴 함수
 def login_mainmenu():
     # 터미널에서 사용자가 가장 먼저 보게될 메뉴
-    login_menu = "\n1) Create a new User ID\n2) Change a password\n3) Display all User IDs\n4) Quit\n\nEnter Selection: "
+    login_menu = ("\n1) Create a new User ID"
+                  "\n2) Change a password"
+                  "\n3) Display all User IDs"
+                  "\n4) Quit"
+                  "\n\nEnter Selection: ")
 
     # 4번 종료 메뉴가 선택될 떄까지 메뉴화면을 계속 출력한다
     while True:
