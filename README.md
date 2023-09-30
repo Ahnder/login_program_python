@@ -24,6 +24,7 @@
 
 
 ## 업데이트 일지
+[2023/09/30 v1.20 메뉴구조를 if문으로 반복하는 대신 딕셔너리와 람다식을 적용해서 알아보기 쉽게 변경](https://github.com/Ahnder/login_program_python/commit/f3f5554ec4754fcbf0096c6f3a78eaef2e803739)
 
 [2023/09/30 v1.10 입력 된 비밀번호를 평가해서 점수를 리턴해주는 score_password 함수에 정규표현식 적용](https://github.com/Ahnder/login_program_python/commit/f464516b27ad9bdd7b83d26bed6c6cb0cf4ab586)
 
