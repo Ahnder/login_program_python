@@ -1,6 +1,8 @@
 # import
 import csv
 from os import path
+import re
+
 
 # csv파일을 read해서 정보를 가져오는 함수
 def read_user_list():
@@ -51,30 +53,22 @@ def update_userinfo(user_id, new_password):
 
 # 비밀번호를 매개변수로 받아 각 항목 점수를 평가해서 리턴
 def score_password(password):
-    # 점수
+    # 비밀번호 점수
     score = 0
-    # 비밀번호에 허용된 특수문자열
-    special_letters = "!@#$%^&*"
 
-    # 비밀번호가 8자리 이상
-    if len(password) >= 8:
-        score += 1
-    # 대문자 하나 이상
-    if not password.islower():
-        score += 1
-    # 소문자 하나 이상
-    if not password.isupper():
-        score += 1
-    # 숫자 하나 이상
-    for letter in password:
-        if letter.isdigit():
-            score += 1
-            break
-    # 특수문자열에서 하나 이상
-    for letter in password:
-        if letter in special_letters:
-            score += 1
-            break
+    # 비밀번호 평가하는 5가지 조건 정규표현식
+    eight_letters_more = r'(\w|[@#$%^&*!]){8,}$'
+    uppercase_one_more = r'.*[A-Z]'
+    lowercase_one_more = r'.*[a-z]'
+    number_one_more = r'.*\d'
+    special_characters_one_more = r'.*[@#$%^&*!]'
+
+    # 정규표현식 한개 통과할때마다 1점씩 플러스
+    if re.match(eight_letters_more, password): score += 1
+    if re.match(uppercase_one_more, password): score += 1
+    if re.match(lowercase_one_more, password): score += 1
+    if re.match(number_one_more, password): score += 1
+    if re.match(special_characters_one_more, password): score += 1
 
     return score
 
