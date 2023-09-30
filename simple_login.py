@@ -181,7 +181,7 @@ def display_all_user_id():
 
 # 로그인 프로그램 메인메뉴 함수
 def login_mainmenu():
-    # 터미널에서 사용자가 가장 먼저 보게될 메뉴
+     # 터미널에서 사용자가 가장 먼저 보게될 메뉴
     login_menu = ("\n1) Create a new User ID"
                   "\n2) Change a password"
                   "\n3) Display all User IDs"
@@ -193,20 +193,23 @@ def login_mainmenu():
         try:
             # 사용자가 입력하는 메뉴 번호를 정수형 숫자로 제한해서 받는다
             select_menu = int(input(login_menu))
-            if select_menu == 1:    # create new user id and password
-                create_user()
-            elif select_menu == 2:   # change a password
-                change_password()
-            elif select_menu == 3:   # display all user id
-                display_all_user_id()
-            elif select_menu == 4:   # quit
-                print("Selection: 4, Exit the program")
+            # 딕셔너리의 키를 메뉴번호로 값을 람다식을 이용한 함수로 설정하여 입력 된 번호에 맞는 함수 리턴
+            {
+                 1: (lambda: create_user()),
+                 2: (lambda: change_password()),
+                 3: (lambda: display_all_user_id()),
+                 4: (lambda: print('Exit the program'))
+            }.get(select_menu)()
+            # 입력된 숫자가 4면 프로그램 종료
+            if select_menu == 4:
                 break
-            else:
-                print("Select correct menu number")
 
-        except Exception:
-            print("The input is not number, Select correct menu number")         
+        # 입력값이 메뉴번호와 일치하지 않는 숫자일 경우 에러처리
+        except TypeError as e:
+            print("Enter the correct number (1-4)")
+        # 입력값이 정수형 숫자가 아니면 에러처리    
+        except ValueError as e:
+            print("Only number input is allowed")        
            
 
 #
